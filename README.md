@@ -1,54 +1,108 @@
+# Salary Predictor
 
-Salary Predictor: Machine Learning Regression Project
-This repository contains a Machine Learning project designed to predict professional salaries based on various input features such as years of experience, job title, and education level.
+A machine learning salary prediction project with a Streamlit frontend that estimates salaries from professional and company-related input features.
 
-## Project Overview
-The goal of this project is to build a predictive model that can estimate a fair market salary for a given professional profile. This is particularly useful for job seekers negotiating offers and HR departments determining competitive compensation packages.
+The application loads a trained model together with a preprocessing pipeline and feature selector, then returns an estimated salary directly in the browser.
 
-## Key Features
-Data Preprocessing: Handles missing values, encodes categorical variables (like Job Title), and scales numerical data.
+## Overview
 
-Exploratory Data Analysis (EDA): Visualizations to show the correlation between experience and income.
+This project is designed as a lightweight applied ML demo for salary estimation. It combines:
 
-Multiple Model Support: Implements and compares different regression algorithms to find the most accurate predictor.
+- a trained regression model
+- preprocessing and feature selection artifacts
+- an interactive Streamlit interface
 
-Easy-to-Use Interface: A script-based approach to inputting data and receiving instant salary estimates.
+The user enters a small set of profile and company details, and the system returns a predicted salary value in USD.
+
+## Current Input Features
+
+The app currently takes:
+
+- work year
+- experience level
+- job title
+- company location
+- company size
 
 ## Tech Stack
-Language: Python
 
-Libraries:
+| Layer | Technology |
+|---|---|
+| Language | Python |
+| Interface | Streamlit |
+| ML Tooling | scikit-learn, joblib |
+| Data Handling | pandas, NumPy |
 
-Pandas & NumPy: For data manipulation.
+## Project Structure
 
-Scikit-learn: For implementing regression models (Linear, Polynomial, or Random Forest).
+```text
+Salary_predictor/
+├── app.py                          # Streamlit app entry point
+├── rf_model_cbrt_tuned.joblib      # Trained regression model
+├── feature_selector_cbrt.joblib    # Feature selection artifact
+├── preprocessor_cbrt.joblib        # Input preprocessing pipeline
+└── README.md
+```
 
-Matplotlib & Seaborn: For data visualization and plotting trends.
+## How It Works
 
-Pickle: For saving and loading the trained model.
+The application follows this flow:
 
-## Getting Started
-Prerequisites
-Ensure you have Python installed. You can install the required dependencies using:
+1. Load the saved model, selector, and preprocessing pipeline
+2. Collect user input from the Streamlit interface
+3. Transform the input through the preprocessing pipeline
+4. Reduce features through the saved selector
+5. Generate a prediction from the trained model
+6. Reverse the cube-root transformation used during training
+7. Display the estimated salary in USD
 
-Bash
-pip install pandas numpy scikit-learn matplotlib seaborn
-Usage
-Clone the repository:
+## Running the Project
 
-Bash
+### 1. Clone the repository
 
-Run the training script:
+```bash
+git clone https://github.com/rudhrancodes-dev/Salary_predictor.git
+cd Salary_predictor
+```
 
-Bash
-python train_model.py
-Make a prediction:
+### 2. Install dependencies
 
-Bash
-python predict.py
-## Future Enhancements
-Adding a React.js or Streamlit web interface for real-time predictions.
+```bash
+pip install streamlit joblib numpy pandas scikit-learn
+```
 
-Expanding the dataset to include geographic location and industry-specific variables.
+### 3. Start the application
 
-Incorporating Deep Learning (Neural Networks) to improve prediction accuracy on larger datasets.
+```bash
+streamlit run app.py
+```
+
+## Notes on the Model
+
+The current interface surfaces the model as a demo prediction tool and includes a visible note about approximate accuracy. Based on the app output, the current demo reports:
+
+- approximate MAE of around `$45,366`
+- R² of around `0.2777`
+
+This means the project is useful as a demonstration of the workflow, but not yet positioned as a production-grade salary intelligence system.
+
+## What This Repository Demonstrates
+
+- applied machine learning deployment in a simple interface
+- use of serialized preprocessing and model artifacts
+- structured inference workflow for tabular prediction tasks
+- lightweight productization of an ML model with Streamlit
+
+## Possible Improvements
+
+Strong next steps for this project would be:
+
+- documenting the training workflow in more detail
+- adding dataset description and evaluation methodology
+- expanding the supported job titles and countries
+- improving model accuracy with broader data and feature engineering
+- deploying the app publicly for easier access
+
+## Author
+
+Built by [Rudhran B](https://github.com/rudhrancodes-dev)
